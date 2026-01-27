@@ -21,25 +21,33 @@ class App:
         self.tela()
 
     def on_button_click(self):
-        self.label.config(text="Button Clicked!")
+        self.label.config(self.calcular_salario_liquido)
 
     def tela(self):
         self.root.configure(background='#00FF7F')
 
 
     def calcular_salario_liquido(self, entrada_salario):
-        desconto_inss01 = 0.75
+        faixa1 = 1516.71 * 0.075 # 7.5%
+        faixa2 = (2793.88 - 1516.71) * 0.09 # 9%
+        faixa3 = (4190.83 - 2793.88) * 0.12 # 12%
+        faixa4 = (8157.41 - 4190.83) * 0.14 # 14%
+        teto = 8157.41 
+
 
         if entrada_salario < 1612.00:
-            desconto_inss01 = entrada_salario * desconto_inss01
-        elif 1650.50 <= entrada_salario <= 2427.35:
-            desconto_inss01 = entrada_salario * 0.09
-        elif 2427.36 <= entrada_salario <= 3641.03:
-            desconto_inss01 = entrada_salario * 0.12
-        elif 3641.04 <= entrada_salario <= 7087.22:
-            desconto_inss01 = entrada_salario * 0.14   
+            inss = entrada_salario * 0.075
+        elif entrada_salario <= 2427.35:
+            inss = (entrada_salario - 1516.71) * 0.09 + faixa1
+        elif entrada_salario <= 4190.83:
+            inss = (entrada_salario - 2793.88) * 0.12 + faixa1 + faixa2
+        elif entrada_salario <= teto:
+            inss = (entrada_salario - 4190.83) * 0.14 + faixa1 + faixa2 + faixa3
+        else:
+            inss = faixa1 + faixa2 + faixa3 + faixa4
+        
+        return round(inss, 2)
 
-        return desconto_inss01
 if __name__ == "__main__":
     root = Tk()
     app = App(root)
