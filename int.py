@@ -1,16 +1,24 @@
+from tkinter import *
+from tkinter import ttk
+
 ## Calculo de salário 
 
 
-#nome = input("Qual é o seu nome ? ")
-salario = float(input("Qual é o seu salario ?"))
-horasTrabalhadas = float(input("Quantas horas trabalhas na semana ?"))
+class App:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Calculadora de Salário")
+        self.root.geometry("400x300")
 
-#print(f"Seu nome é: {nome}")
-##print(f"Seu salário:{3000}")
+        
+        self.label = ttk.Label(root, text="Calculadora de Salário", font=("Helvetica", 16))
+        self.label.pack(pady=20)
 
-valorDia = salario/horasTrabalhadas
+        self.salario = Entry(root, width=30, font=("Helvetica", 12))
+        self.salario.pack(pady=10)
+        self.salario.insert(0, "Digite seu salário")
 
-print(f"Sua diaria vale: {valorDia: .2f}")
-print ("-------------------------------")
-horasDia = float(input("quantas horas voce trabalha por dia ?"))
-print (f'Sua hora é: {valorDia / horasDia: .2f}')
+        if  __name__ == '__main__':
+            root = Tk()
+            app = App(root)
+            root.mainloop()
