@@ -21,7 +21,15 @@ class App:
         self.tela()
 
     def on_button_click(self):
-        self.label.config(self.calcular_salario_liquido)
+        entrada_salario = self.root.children['!entry'].get()
+        try:
+            salario = float(entrada_salario)
+            salario_liquido = self.calcular_salario_liquido(salario)
+            resultado_label = Label(self.root, text=f"Salário Líquido: R$ {salario_liquido}")
+            resultado_label.place(x=150, y=150)
+        except ValueError:
+            resultado_label = Label(self.root, text="Por favor, insira um valor numérico válido.")
+            resultado_label.place(x=150, y=150)
 
     def tela(self):
         self.root.configure(background='#00FF7F')
